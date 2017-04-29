@@ -30,5 +30,15 @@ var FbAPI = ((oldCrap) => {
 		});
 	};
 
+	oldCrap.addTodo = (newTodo) => {
+		return new Promise ((resolve, reject) => {
+			newTodo.id = `item${FbAPI.todoGetter().length}`;
+// console.log("newTodo", newTodo);
+			FbAPI.setSingleTodo(newTodo);
+			resolve();
+		});
+	};
+
 	return oldCrap;
 })(FbAPI || {});
+
