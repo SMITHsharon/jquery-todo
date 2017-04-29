@@ -51,7 +51,14 @@ $('#add-todo-button').click(() => {
 
 
 // complete todos (checkboxes)
-
+$('.main-container').on("click", 'input[type="checkbox"]', (event) => {
+	console.log("id", event.target.id);
+	FbAPI.checker(event.target.id).then(() => {
+		FbAPI.writeDOM();
+	}).catch((error) => {
+		console.log("checker error", error);
+	});
+});
 
 
 
