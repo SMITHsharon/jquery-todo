@@ -55,6 +55,17 @@ $('.main-container').on('click', '.delete', (event) => {
 
 
 // edit todo
+$('.main-container').on('click', '.edit', (event) => {
+	let editText = $(event.target).closest('.col-xs-4').siblings('.col-xs-8').find('.task').html();
+	FbAPI.editToDo(event.target.id).then(( ) => {	
+		$(".list-container").addClass("hide");
+		$(".new-container").removeClass("hide");
+		$('#add-todo-text').val(editText);
+
+	}).catch((error) => {
+		console.log("error from editToDo", error);
+	});
+});
 
 
 
