@@ -3,12 +3,12 @@
 
 var FbAPI = ((oldCrap) => {
 
-	oldCrap.getTodos = () => {
+	oldCrap.getTodos = (apiKeys) => {
 		let items = [];
 		return new Promise ((resolve, reject) => {
-			$.ajax('./database/seed.json')
+			$.ajax(`${apiKeys.databaseURL}/items.json`)
 			.done((data) => {
-				let response = data.items;
+				let response = data;
 				Object.keys(response).forEach((key) => { 
 // console.log("key", key);
 					response[key].id = key;
@@ -20,8 +20,8 @@ var FbAPI = ((oldCrap) => {
 
 					items.push(response[key]);
 				});
-			FbAPI.setTodos(items);
-			resolve();
+			
+			resolve(items);
 			})
 
 			.fail((error) => {
