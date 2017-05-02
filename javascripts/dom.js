@@ -6,13 +6,11 @@ var FbAPI = ((otherOldCrap) => {
 	otherOldCrap.countTask = () => {
 		let remainingTasks = $('#incomplete-tasks li').length; 
 		$('#counter').hide().fadeIn(3000).html(remainingTasks);
-
 	};
 
 		
-
 	otherOldCrap.writeDOM = (keys) => {
-		FbAPI.getTodos(keys).then((results) => {
+		FbAPI.getToDos(keys).then((results) => {
 			let todos = results;
 			let doneString = "";
 			let notDoneString = "";
