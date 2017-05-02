@@ -1,6 +1,11 @@
 
 $(document).ready(function(){
 
+// questions
+// why was the getToDos moved out of <main>, to crud
+// why was getToDos in <main> initially?
+//
+
 let apiKeys;
 let editId = "";
 
