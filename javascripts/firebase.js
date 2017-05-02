@@ -7,6 +7,7 @@ var FbAPI = (() => {
 
 	return {
 		firebaseCredentials : () => {
+			
 			return new Promise((resolve, reject) => {
 				$.ajax("apiKeys.json")
 				.done((data) => {

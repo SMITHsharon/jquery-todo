@@ -3,9 +3,12 @@
 
 var FbAPI = ((oldCrap) => {
 
-	oldCrap.getTodos = (apiKeys) => {
+	oldCrap.getToDos = (apiKeys) => {
+
 		let items = [];
+
 		return new Promise ((resolve, reject) => {
+
 			$.ajax(`${apiKeys.databaseURL}/items.json`)
 			.done((data) => {
 				let response = data;
@@ -21,21 +24,22 @@ var FbAPI = ((oldCrap) => {
 					items.push(response[key]);
 				});
 			
-			resolve(items);
-			})
+				resolve(items);
 
-			.fail((error) => {
+			}).fail((error) => {
 				reject(error);
 			});
 		});
 	};
 
-	oldCrap.addTodo = (apiKeys, newTodo) => {
+
+	oldCrap.addToDo = (apiKeys, newToDo) => {
+
 		return new Promise ((resolve, reject) => {
 			$.ajax({
 				method: 'POST',
 				url: `${apiKeys.databaseURL}/items/.json`,
-				data: JSON.stringify(newTodo)
+				data: JSON.stringify(newToDo)
 
 			}).done(() => {
 				resolve();
@@ -45,9 +49,9 @@ var FbAPI = ((oldCrap) => {
 		});
 	};
 
-	
 
 	oldCrap.deleteToDo = (apiKeys, id) => {
+
 		return new Promise ((resolve, reject) => {
 			$.ajax({
 				method: 'DELETE',
@@ -57,18 +61,18 @@ var FbAPI = ((oldCrap) => {
 				resolve();
 			}).fail((error) => {
 				reject(error);
-			});
-			
-		
+			});	
 		});
 	};
 
-	oldCrap.editToDo = (apiKeys, editTodo, id) => {
+
+	oldCrap.editToDo = (apiKeys, editToDo, id) => {
+
 		return new Promise ((resolve, reject) => {
 			$.ajax({
 				method: 'PUT',
 				url: `${apiKeys.databaseURL}/items/${id}.json`,
-				data: JSON.stringify(editTodo)
+				data: JSON.stringify(editToDo)
 
 			}).done(() => {
 				resolve();
@@ -77,11 +81,6 @@ var FbAPI = ((oldCrap) => {
 			});
 		});
 	};
-
-
-
-
-
 
 	return oldCrap;
 })(FbAPI || {});
