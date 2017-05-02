@@ -3,14 +3,14 @@
 
 var FbAPI = ((oldCrap) => {
 
-	oldCrap.getTodos = () => {
+	oldCrap.getTodos = (apiKeys) => {
 		let items = [];
 		return new Promise ((resolve, reject) => {
-			$.ajax('./database/seed.json')
+			$.ajax(`${apiKeys.databaseURL}/items.json`)
 			.done((data) => {
-				let response = data.items;
+				let response = data;
 				Object.keys(response).forEach((key) => { 
-// console.log("key", key);
+					console.log("key", key);
 					response[key].id = key;
 					//response[item0] = {
 						//isCompleted : true,
@@ -20,44 +20,61 @@ var FbAPI = ((oldCrap) => {
 
 					items.push(response[key]);
 				});
-			FbAPI.setTodos(items);
-			resolve();
+			
+			resolve(items);
 			})
 
 			.fail((error) => {
-			reject(error);
+				reject(error);
 			});
 		});
 	};
 
-	oldCrap.addTodo = (newTodo) => {
+	oldCrap.addTodo = (apiKeys, newTodo) => {
 		return new Promise ((resolve, reject) => {
-			newTodo.id = `item${FbAPI.todoGetter().length}`;
-// console.log("newTodo", newTodo);
-			FbAPI.setSingleTodo(newTodo);
-			resolve();
+			$.ajax({
+				method: 'POST',
+				url: `${apiKeys.databaseURL}/items/.json`,
+				data: JSON.stringify(newTodo)
+
+			}).done(() => {
+				resolve();
+			}).fail((error) => {
+				reject(error);
+			});
 		});
 	};
 
-	oldCrap.checker = (id) => {
-		return new Promise ((resolve, reject) => {
-			FbAPI.setChecked(id);
-			resolve();
-		});
+	
 
+	oldCrap.deleteToDo = (apiKeys, id) => {
+		return new Promise ((resolve, reject) => {
+			$.ajax({
+				method: 'DELETE',
+				url: `${apiKeys.databaseURL}/items/${id}.json`
+
+			}).done(() => {
+				resolve();
+			}).fail((error) => {
+				reject(error);
+			});
+			
+		
+		});
 	};
 
-	oldCrap.deleteToDo = (id) => {
+	oldCrap.editToDo = (apiKeys, editTodo, id) => {
 		return new Promise ((resolve, reject) => {
-			FbAPI.duhlete(id);
-			resolve();
-		});
-	};
+			$.ajax({
+				method: 'PUT',
+				url: `${apiKeys.databaseURL}/items/${id}.json`,
+				data: JSON.stringify(editTodo)
 
-	oldCrap.editToDo = (id) => {
-		return new Promise ((resolve, reject) => {
-			FbAPI.duhlete(id);
-			resolve();
+			}).done(() => {
+				resolve();
+			}).fail((error) => {
+				reject(error);
+			});
 		});
 	};
 
