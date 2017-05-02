@@ -10,7 +10,7 @@ var FbAPI = ((oldCrap) => {
 			.done((data) => {
 				let response = data;
 				Object.keys(response).forEach((key) => { 
-// console.log("key", key);
+					console.log("key", key);
 					response[key].id = key;
 					//response[item0] = {
 						//isCompleted : true,
@@ -25,7 +25,7 @@ var FbAPI = ((oldCrap) => {
 			})
 
 			.fail((error) => {
-			reject(error);
+				reject(error);
 			});
 		});
 	};
@@ -45,13 +45,7 @@ var FbAPI = ((oldCrap) => {
 		});
 	};
 
-	oldCrap.checker = (apiKeys, id) => {
-		return new Promise ((resolve, reject) => {
-			FbAPI.setChecked(id);
-			resolve();
-		});
-
-	};
+	
 
 	oldCrap.deleteToDo = (apiKeys, id) => {
 		return new Promise ((resolve, reject) => {
@@ -65,13 +59,22 @@ var FbAPI = ((oldCrap) => {
 				reject(error);
 			});
 			
+		
 		});
 	};
 
-	oldCrap.editToDo = (apiKeys, id) => {
+	oldCrap.editToDo = (apiKeys, editTodo, id) => {
 		return new Promise ((resolve, reject) => {
-			FbAPI.duhlete(id);
-			resolve();
+			$.ajax({
+				method: 'PUT',
+				url: `${apiKeys.databaseURL}/items/${id}.json`,
+				data: JSON.stringify(editTodo)
+
+			}).done(() => {
+				resolve();
+			}).fail((error) => {
+				reject(error);
+			});
 		});
 	};
 
