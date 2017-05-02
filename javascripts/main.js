@@ -18,7 +18,6 @@ FbAPI.firebaseCredentials().then((keys) => {
 	apiKeys = keys;
 	firebase.initializeApp(apiKeys);
 	FbAPI.writeDOM(apiKeys);
-	countTask();
 
 }).catch((error ) => {
 	console.log("key errors", error);
@@ -43,12 +42,11 @@ $('#add-todo-button').click(() => {
 		task: $('#add-todo-text').val()
 	};
 	console.log("newTodo", newTodo);
-	FbAPI.addTodo(newTodo).then(() => {
+	FbAPI.addTodo(apiKeys, newTodo).then(() => {
 		$('#add-todo-text').val("");
 		$(".new-container").addClass("hide");
 		$(".list-container").removeClass("hide");
-		FbAPI.writeDOM();
-		countTask();
+		FbAPI.writeDOM(apiKeys);
 	}).catch((error) => {
 		console.log("addTodo error", error);
 	});
@@ -58,9 +56,8 @@ $('#add-todo-button').click(() => {
 
 // delete todo
 $('.main-container').on('click', '.delete', (event) => {
-	FbAPI.deleteToDo(event.target.id).then(() => {
-		FbAPI.writeDOM();
-		countTask();
+	FbAPI.deleteToDo(apiKeys, event.target.id).then(() => {
+		FbAPI.writeDOM(apiKeys);
 	}).catch((error) => {
 		console.log("error in deleteToDo", error);
 	});
@@ -84,28 +81,25 @@ $('.main-container').on('click', '.edit', (event) => {
 
 
 // complete todos (checkboxes)
-$('.main-container').on("click", 'input[type="checkbox"]', (event) => {
-	console.log("id", event.target.id);
-	FbAPI.checker(event.target.id).then(() => {
-		FbAPI.writeDOM();
-	}).catch((error) => {
-		console.log("checker error", error);
-	});
-});
+// $('.main-container').on("click", 'input[type="checkbox"]', (event) => {
+// 	console.log("id", event.target.id);
+// 	FbAPI.checker(event.target.id).then(() => {
+// 		FbAPI.writeDOM(apiKeys);
+// 	}).catch((error) => {
+// 		console.log("checker error", error);
+// 	});
+// });
 
 
 
-let countTask = () => {
+// let countTask = () => {
 
-	// jQuery returns an array of the li's
-	let remainingTasks = $('#incomplete-tasks li').length; 
+// 	// jQuery returns an array of the li's
+// 	let remainingTasks = $('#incomplete-tasks li').length; 
 
-	$('#counter').hide().fadeIn(3000).html(remainingTasks);
+// 	$('#counter').hide().fadeIn(3000).html(remainingTasks);
 
-};
-
-
-
+// };
 
 
 
