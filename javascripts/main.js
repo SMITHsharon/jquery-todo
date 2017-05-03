@@ -140,7 +140,7 @@ $('#registerButton').click(() => {
 			uid: response.uid,
 			username: username
 		};
-		
+
 		FbAPI.addUser(apiKeys, newUser).then((response) => {
 			console.log("addUser", response);
 		}).catch((error) => {
@@ -152,6 +152,30 @@ $('#registerButton').click(() => {
 });
 
 
+let clearLogin = () => {
+
+	$('#inputEmail').val("");
+	$('#inputPassword').val("");
+	$('#inputUsername').val("");
+
+};
+
+
+$('#loginButton').click(() => {
+	let email = $('#inputEmail').val();
+	let password = $('#inputPassword').val();
+
+	let user = {email, password};
+
+	FbAPI.loginUser(user).then((response) => {
+		clearLogin();
+		$('#login-container').addClass('hide');
+		$('.main-container').removeClass('hide');
+		FbAPI.writeDOM(apiKeys);
+	}).catch((error) => {
+		console.log("error in loginUser", error);
+	});
+});
 
 
 
