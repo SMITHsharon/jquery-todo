@@ -125,4 +125,25 @@ $('.main-container').on("click", 'input[type="checkbox"]', (event) => {
 
 
 
+$('#registerButton').click(() => {
+	let email = $('inputEmail').val();
+	let password = $('#inputPassword').val();
+	let username = $('#inputUsername').val();
+
+	// ES6 notation when key & value are the same
+	// otherwise, have to break out the 
+	// key: value pairs
+	let user = {email, password}; 
+	FbAPI.registerUser(user).then((response) => {
+		console.log("register response", response);
+	}).catch((error) => {
+		console.log("error in registerUser", error);
+	});
+});
+
+
+
+
+
+
 });

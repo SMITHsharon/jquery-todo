@@ -14,7 +14,7 @@ var FbAPI = ((otherOldCrap) => {
 			let todos = results;
 			let doneString = "";
 			let notDoneString = "";
-			console.log("todos in writeDOM", todos);
+// console.log("todos in writeDOM", todos);
 
 			todos.forEach((todo) => {
 		      if (todo.isCompleted) {
