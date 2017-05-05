@@ -24,6 +24,14 @@ console.log("credentials.email", credentials.email);
 		});
 	};
 
+	cats.credentialsCurrentUser = () => {
+		return firebase.auth().currentUser;
+	};
+
+	cats.logoutUser = () => {
+		firebase.auth().signOut();
+	};
+
 	return cats;
 	
 })(FbAPI || {});

@@ -25,7 +25,7 @@ FbAPI.firebaseCredentials().then((keys) => {
 	// gets the apiKeys.JSON object
 	// that has the API key et al
 	firebase.initializeApp(apiKeys);
-	FbAPI.writeDOM(apiKeys);
+	// FbAPI.writeDOM(apiKeys);
 
 }).catch((error ) => {
 	console.log("key errors", error);
@@ -178,11 +178,20 @@ $('#loginButton').click(() => {
 		clearLogin();
 		$('#login-container').addClass('hide');
 		$('.main-container').removeClass('hide');
+		FbAPI.createLogoutButton(apiKeys);
 		FbAPI.writeDOM(apiKeys);
 	}).catch((error) => {
 		console.log("error in loginUser", error);
 	});
 });
+
+$('#logout-container').on('click', '#logoutButton', () => {
+	clearLogin();
+	FbAPI.logoutUser();
+	$('#login-container').removeClass('hide');
+	$('.main-container').addClass('hide');
+});
+
 
 
 
