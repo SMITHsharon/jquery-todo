@@ -25,7 +25,7 @@ FbAPI.firebaseCredentials().then((keys) => {
 	// gets the apiKeys.JSON object
 	// that has the API key et al
 	firebase.initializeApp(apiKeys);
-	FbAPI.writeDOM(apiKeys);
+	// FbAPI.writeDOM(apiKeys);
 
 }).catch((error ) => {
 	console.log("key errors", error);

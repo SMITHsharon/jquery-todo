@@ -9,8 +9,11 @@ var FbAPI = ((oldCrap) => {
 
 		return new Promise ((resolve, reject) => {
 
-			$.ajax(`${apiKeys.databaseURL}/items.json`)
+			let uid = FbAPI.credentialsCurrentUser().uid;
+
+			$.ajax(`${apiKeys.databaseURL}/items.json?orderBy="uid"&equalTo="${uid}"`)
 			.done((data) => {
+				console.log("data :: ", data);
 				let response = data;
 				Object.keys(response).forEach((key) => { 
 // console.log("key", key);
